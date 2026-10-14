@@ -14,15 +14,22 @@ This is an independent, unofficial project. It is **not affiliated with, endorse
 
 The extension isn't on the Chrome Web Store, so it's loaded manually. Chrome may show a "developer mode extensions" notice on startup; that's expected.
 
-1. Download this repo: **Code > Download ZIP** on GitHub, then unzip it. (Or `git clone` it.)
-2. In Chrome, go to `chrome://extensions`.
-3. Turn on **Developer mode** (top-right toggle).
-4. Click **Load unpacked** and choose the unzipped folder (the one containing `manifest.json`).
-5. Open <https://www.kroger.com/savings/cl/coupons/> while signed in.
+1. Go to the [latest release](https://github.com/SixAcreApiary/coupon-clip-all/releases/latest) and download `coupon-clip-all-vX.Y.Z.zip` (under **Assets**).
+2. Unzip it somewhere you'll keep it (Chrome loads the extension from this folder, so don't delete it). You'll get a `coupon-clip-all` folder.
+3. In Chrome, go to `chrome://extensions`.
+4. Turn on **Developer mode** (top-right toggle).
+5. Click **Load unpacked** and choose the `coupon-clip-all` folder (the one containing `manifest.json`).
+6. Open <https://www.kroger.com/savings/cl/coupons/> while signed in.
 
 Works in other Chromium browsers (Edge, Brave) the same way.
 
-To update: download the new version, replace the folder, and click the reload icon on the extension's card in `chrome://extensions`.
+### Updates
+
+The extension doesn't update itself. To be notified of new versions, click **Watch > Custom > Releases** at the top of this repo on GitHub.
+
+To update: download the new release zip, replace the contents of your `coupon-clip-all` folder with the new one, then click the reload icon on the extension's card in `chrome://extensions`. Your settings are kept.
+
+Prefer the latest unreleased code? Use **Code > Download ZIP** (or `git clone`) instead and load that folder.
 
 ## Use
 
@@ -58,6 +65,13 @@ npm test
 ```
 
 Tests run with Node's built-in test runner and jsdom against real coupon-card markup in `test/fixtures/`. The `node_modules` folder is only for tests and must not be inside the folder you load into Chrome (Chrome rejects files whose names start with `_`). If you've run `npm install` in your copy, load a copy without `node_modules`.
+
+## Releasing
+
+1. Bump the version (patch by default) in both `manifest.json` and `package.json`, and merge to `master`.
+2. Tag and push: `git tag v1.2.3 && git push origin v1.2.3`.
+
+The [Release workflow](.github/workflows/release.yml) runs the tests, builds the zip with `scripts/package.py` (which refuses a tag that doesn't match the manifest version), and publishes a GitHub Release with auto-generated notes. Run `python3 scripts/package.py` locally to build the same zip into `dist/`.
 
 ## License
 

@@ -246,3 +246,9 @@ test('support link points to the Buy Me a Coffee page over https', () => {
   const { SUPPORT_URL } = require('../src/clipper');
   assert.equal(SUPPORT_URL, 'https://buymeacoffee.com/xanderphillips');
 });
+
+test('manifest and package.json versions match (release tags rely on it)', () => {
+  const manifest = require('../manifest.json');
+  const pkg = require('../package.json');
+  assert.equal(manifest.version, pkg.version);
+});
