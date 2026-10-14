@@ -23,7 +23,8 @@
   }
 
   const SUPPORT_URL = 'https://buymeacoffee.com/xanderphillips';
-  const DEFAULT_DELAY_SECONDS = 1;
+  // Human-like default pace (1.05-1.95s with jitter).
+  const DEFAULT_DELAY_SECONDS = 1.5;
   const MIN_DELAY_SECONDS = 0.5;
   const MAX_DELAY_SECONDS = 10;
   const JITTER = 0.3;

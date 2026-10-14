@@ -252,3 +252,33 @@ test('manifest and package.json versions match (release tags rely on it)', () =>
   const pkg = require('../package.json');
   assert.equal(manifest.version, pkg.version);
 });
+
+test('default delay is human-paced (1-2s per clip including jitter)', () => {
+  const { DEFAULT_DELAY_SECONDS, jitteredDelayMs } = require('../src/clipper');
+  assert.equal(DEFAULT_DELAY_SECONDS, 1.5);
+  assert.ok(jitteredDelayMs(DEFAULT_DELAY_SECONDS, () => 0) >= 1000);
+  assert.ok(jitteredDelayMs(DEFAULT_DELAY_SECONDS, () => 0.999999) <= 2000);
+});
+
+test('run uses the human-paced default delay when none is chosen', async () => {
+  const page = makePage();
+  const waits = [];
+  await run({ doc: page.doc, win: page.win, sleep: async (ms) => { waits.push(ms); }, random: () => 0.5, scrollWait: 1 });
+  assert.deepEqual(waits.filter((ms) => ms >= 1000), [1500, 1500]);
+});
+
+test('manifest icons exist as PNGs of the declared sizes', () => {
+  const manifest = require('../manifest.json');
+  for (const [size, file] of Object.entries(manifest.icons)) {
+    const buf = fs.readFileSync(path.join(__dirname, '..', file));
+    assert.equal(buf.toString('latin1', 1, 4), 'PNG', file);
+    assert.equal(buf.readUInt32BE(16), Number(size), `${file} width`);
+    assert.equal(buf.readUInt32BE(20), Number(size), `${file} height`);
+  }
+});
+
+test('manifest description fits the 132-character store limit and states non-affiliation', () => {
+  const manifest = require('../manifest.json');
+  assert.ok(manifest.description.length <= 132);
+  assert.match(manifest.description, /not affiliated with kroger/i);
+});

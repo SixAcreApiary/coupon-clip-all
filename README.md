@@ -36,7 +36,7 @@ Prefer the latest unreleased code? Use **Code > Download ZIP** (or `git clone`) 
 A small panel appears in the bottom-right corner of the coupons page.
 
 - **Move it** - drag the panel by its "Coupon Clip All" title bar. Double-click the title bar to send it back to the corner. The position is remembered.
-- **Delay** - pause between clips, 0.5-10 seconds (each pause varies by +/-30% so clicks aren't evenly spaced). The setting is remembered and can be changed mid-run.
+- **Delay** - pause between clips, 0.5-10 seconds. Defaults to **1.5 seconds**, a human-like pace; each pause varies by +/-30% so clicks aren't evenly spaced. Faster settings make automated use more noticeable to Kroger, so lower it at your own risk. The setting is remembered and can be changed mid-run.
 - **Hide clipped coupons** - hides coupons you've already clipped, including ones clipped during a run, so only unclipped coupons remain. When turned on, it scrolls through the page once to load every coupon (Kroger only loads more as you scroll), then returns to the top. Kroger's coupon count at the top doesn't change. Turn it off (or use Kroger's "Clipped Coupons" tab) to unclip something. The setting is remembered.
 - **Clip All** - starts clipping. While running, the button becomes **Stop** and shows a running tally.
 - **Buy me a coffee** - optional support link; opens in a new tab.
@@ -52,10 +52,10 @@ A coupon is only clicked when its button reads exactly **Clip** and the card has
 
 ## Caveats
 
-- Automated clicking may conflict with Kroger's terms of use. Use at your own risk; the authors aren't responsible for any action taken on your account.
+- **Use at your own risk.** Automated clicking may violate Kroger's terms of use, and Kroger may restrict, suspend or close accounts it believes are using automation. The authors aren't responsible for any action taken on your account.
 - If Kroger changes its page layout the extension may stop finding coupons until it's updated.
 - Only `www.kroger.com` is supported; other Kroger-family banners (Ralphs, Fred Meyer, etc.) are not.
-- The extension collects no data and makes no network requests of its own. It stores only your delay, panel position and hide-clipped setting, locally in your browser.
+- The extension collects no data and makes no network requests of its own. It stores only your delay, panel position and hide-clipped setting, locally in your browser. See [PRIVACY.md](PRIVACY.md).
 
 ## Development
 
@@ -65,6 +65,10 @@ npm test
 ```
 
 Tests run with Node's built-in test runner and jsdom against real coupon-card markup in `test/fixtures/`. The `node_modules` folder is only for tests and must not be inside the folder you load into Chrome (Chrome rejects files whose names start with `_`). If you've run `npm install` in your copy, load a copy without `node_modules`.
+
+## Icons and store assets
+
+`python3 scripts/make_icons.py` (needs Pillow) regenerates `icons/` (SVG + 16/32/48/128 PNGs) and `store/promo-small-440x280.png` from geometry defined in the script. Chrome Web Store listing text lives in [docs/web-store-listing.md](docs/web-store-listing.md).
 
 ## Releasing
 

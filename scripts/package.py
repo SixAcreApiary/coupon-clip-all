@@ -11,7 +11,7 @@ import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-INCLUDE = ["manifest.json", "src", "README.md", "LICENSE"]
+INCLUDE = ["manifest.json", "src", "icons", "README.md", "LICENSE", "PRIVACY.md"]
 FOLDER = "coupon-clip-all"
 
 
