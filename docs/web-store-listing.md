@@ -43,7 +43,7 @@ Open source: https://github.com/SixAcreApiary/coupon-clip-all
 **Graphic assets:**
 - Store icon 128x128: `icons/icon-128.png`
 - Small promo tile 440x280: `store/promo-small-440x280.png`
-- Screenshots (1280x800 or 640x400, PNG/JPEG, 1-5): take manually, see checklist below.
+- Screenshots (1280x800 or 640x400, JPEG or 24-bit PNG with no alpha, 1-5): `store/screenshot-1-1280x800.png` (product images, brand names and personal savings blurred). See checklist below for more.
 
 **Official URL:** none. **Homepage URL:** https://github.com/SixAcreApiary/coupon-clip-all. **Support URL:** https://github.com/SixAcreApiary/coupon-clip-all/issues
 
@@ -66,6 +66,21 @@ The extension's only function is to operate on the kroger.com digital coupons pa
 - I do not use or transfer user data to determine creditworthiness or for lending purposes.
 
 **Privacy policy URL:** https://github.com/SixAcreApiary/coupon-clip-all/blob/master/PRIVACY.md
+
+## Test instructions tab
+
+Username/password: leave blank (don't create or share a kroger.com account).
+
+Additional instructions (max 500 chars; this is 431):
+
+```
+No test account: clipping needs the reviewer's own free kroger.com account; we can't create or share accounts on a third-party site.
+1. Open https://www.kroger.com/savings/cl/coupons/ and sign in.
+2. A "Coupon Clip All" panel appears bottom-right.
+3. Click Clip All: coupons clip top-down ~1.5s apart; "Boost Exclusive" coupons are skipped.
+4. "Hide clipped coupons" hides clipped ones.
+Only local storage used; no data collected.
+```
 
 ## Distribution tab
 
