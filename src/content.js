@@ -8,9 +8,11 @@
     DEFAULT_DELAY_SECONDS,
     MIN_DELAY_SECONDS,
     MAX_DELAY_SECONDS,
+    HIDE_CLIPPED_CSS,
   } = window.CouponClipper;
   const STORAGE_KEY = 'delaySeconds';
   const POSITION_KEY = 'panelPosition';
+  const HIDE_CLIPPED_KEY = 'hideClipped';
   const IDLE_COLOR = '#0f5ead';
 
   const panel = document.createElement('div');
@@ -58,6 +60,22 @@
   delayValue.style.minWidth = '3.5em';
   delayRow.append(delayText, slider, delayValue);
 
+  const hideRow = document.createElement('label');
+  Object.assign(hideRow.style, { display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' });
+  const hideBox = document.createElement('input');
+  hideBox.type = 'checkbox';
+  const hideText = document.createElement('span');
+  hideText.textContent = 'Hide clipped coupons';
+  hideRow.append(hideBox, hideText);
+
+  const hideStyle = document.createElement('style');
+  hideStyle.id = 'coupon-clip-all-hide-clipped';
+  document.head.appendChild(hideStyle);
+  const applyHideClipped = (on) => {
+    hideBox.checked = on;
+    hideStyle.textContent = on ? HIDE_CLIPPED_CSS : '';
+  };
+
   const button = document.createElement('button');
   button.type = 'button';
   button.textContent = 'Clip All';
@@ -72,7 +90,7 @@
     textAlign: 'left',
   });
 
-  panel.append(handle, delayRow, button);
+  panel.append(handle, delayRow, hideRow, button);
   document.body.appendChild(panel);
 
   let delaySeconds = DEFAULT_DELAY_SECONDS;
@@ -98,7 +116,8 @@
     if (storage) storage.set(items).catch(() => {});
   };
   if (storage) {
-    storage.get([STORAGE_KEY, POSITION_KEY]).then((items) => {
+    storage.get([STORAGE_KEY, POSITION_KEY, HIDE_CLIPPED_KEY]).then((items) => {
+      if (items && items[HIDE_CLIPPED_KEY] === true) applyHideClipped(true);
       if (items && items[STORAGE_KEY] !== undefined) {
         delaySeconds = clampDelaySeconds(items[STORAGE_KEY]);
         showDelay();
@@ -140,6 +159,11 @@
   });
 
   window.addEventListener('resize', placePanel);
+
+  hideBox.addEventListener('change', () => {
+    applyHideClipped(hideBox.checked);
+    save({ [HIDE_CLIPPED_KEY]: hideBox.checked });
+  });
 
   slider.addEventListener('input', () => {
     delaySeconds = clampDelaySeconds(slider.value);

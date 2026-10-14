@@ -1,6 +1,9 @@
 (function (root) {
   const CARD_SELECTOR = '[data-testid="coupon-grid-card"]';
   const BUTTON_SELECTOR = '[data-testid^="CouponActionButton-"]';
+  const CLIPPED_CELL_SELECTOR =
+    `li:has(> ${CARD_SELECTOR} ${BUTTON_SELECTOR}[aria-label^="Unclip"])`;
+  const HIDE_CLIPPED_CSS = `${CLIPPED_CELL_SELECTOR} { display: none !important; }`;
 
   // Boost coupons route through an "Enroll in Boost" flow that hijacks the session.
   // Only an exact "Clip" button on a card with no Boost markers is ever clicked.
@@ -131,6 +134,8 @@
     clampPanelPosition,
     CARD_SELECTOR,
     BUTTON_SELECTOR,
+    CLIPPED_CELL_SELECTOR,
+    HIDE_CLIPPED_CSS,
     DEFAULT_DELAY_SECONDS,
     MIN_DELAY_SECONDS,
     MAX_DELAY_SECONDS,

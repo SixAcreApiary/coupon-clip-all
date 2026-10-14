@@ -25,7 +25,10 @@ function makePage({ clipWorks = true } = {}) {
         win.location.href = 'https://www.kroger.com/boost/enroll';
         return;
       }
-      if (clipWorks && btn.textContent.trim() === 'Clip') btn.textContent = 'Unclip';
+      if (clipWorks && btn.textContent.trim() === 'Clip') {
+        btn.textContent = 'Unclip';
+        btn.setAttribute('aria-label', btn.getAttribute('aria-label').replace(/^Clip/, 'Unclip'));
+      }
     });
   }
 
@@ -192,4 +195,22 @@ test('clampPanelPosition keeps the dragged panel inside the viewport', () => {
   assert.deepEqual(clampPanelPosition(5000, 5000, 300, 120, 1280, 800), { left: 980, top: 680 });
   assert.deepEqual(clampPanelPosition(100, 100, 2000, 1000, 1280, 800), { left: 0, top: 0 });
   assert.deepEqual(clampPanelPosition(NaN, undefined, 300, 120, 1280, 800), { left: 0, top: 0 });
+});
+
+test('hide-clipped selector matches only cells holding an Unclip button', () => {
+  const { CLIPPED_CELL_SELECTOR, HIDE_CLIPPED_CSS } = require('../src/clipper');
+  const page = makePage();
+  const matched = Array.from(page.doc.querySelectorAll(CLIPPED_CELL_SELECTOR))
+    .map((li) => li.querySelector(CARD_SELECTOR).dataset.kind);
+  assert.deepEqual(matched, ['clipped']);
+  assert.ok(HIDE_CLIPPED_CSS.includes('display: none'));
+});
+
+test('hide-clipped selector picks up coupons clipped during a run', async () => {
+  const { CLIPPED_CELL_SELECTOR } = require('../src/clipper');
+  const page = makePage();
+  await run({ doc: page.doc, win: page.win, ...fast });
+  const matched = Array.from(page.doc.querySelectorAll(CLIPPED_CELL_SELECTOR))
+    .map((li) => li.querySelector(CARD_SELECTOR).dataset.kind);
+  assert.deepEqual(matched, ['clippable', 'clipped', 'boostBrand']);
 });
