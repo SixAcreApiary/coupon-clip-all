@@ -2,6 +2,8 @@
 
 A Chrome extension that clips every digital coupon on the Kroger website's coupons page, from the top down, while **skipping "Boost Member Exclusive" coupons** (their button starts a Boost enrollment flow that takes over the page).
 
+If you find this useful, [buy me a coffee](https://buymeacoffee.com/xanderphillips) ☕
+
 ## Compatibility and trademarks
 
 Built to be compatible with the coupons page at <https://www.kroger.com/savings/cl/coupons/>.
@@ -30,6 +32,7 @@ A small panel appears in the bottom-right corner of the coupons page.
 - **Delay** - pause between clips, 0.5-10 seconds (each pause varies by +/-30% so clicks aren't evenly spaced). The setting is remembered and can be changed mid-run.
 - **Hide clipped coupons** - hides coupons you've already clipped, including ones clipped during a run, so only unclipped coupons remain. When turned on, it scrolls through the page once to load every coupon (Kroger only loads more as you scroll), then returns to the top. Kroger's coupon count at the top doesn't change. Turn it off (or use Kroger's "Clipped Coupons" tab) to unclip something. The setting is remembered.
 - **Clip All** - starts clipping. While running, the button becomes **Stop** and shows a running tally.
+- **Buy me a coffee** - optional support link; opens in a new tab.
 
 It scrolls down to load more coupons as it goes and finishes when no more load. A run also stops if:
 

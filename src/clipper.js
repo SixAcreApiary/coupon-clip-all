@@ -22,6 +22,7 @@
     return 'unknown';
   }
 
+  const SUPPORT_URL = 'https://buymeacoffee.com/xanderphillips';
   const DEFAULT_DELAY_SECONDS = 1;
   const MIN_DELAY_SECONDS = 0.5;
   const MAX_DELAY_SECONDS = 10;
@@ -165,6 +166,7 @@
     BUTTON_SELECTOR,
     CLIPPED_CELL_SELECTOR,
     HIDE_CLIPPED_CSS,
+    SUPPORT_URL,
     DEFAULT_DELAY_SECONDS,
     MIN_DELAY_SECONDS,
     MAX_DELAY_SECONDS,
