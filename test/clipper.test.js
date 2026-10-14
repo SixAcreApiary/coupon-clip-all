@@ -35,9 +35,14 @@ function makePage({ clipWorks = true } = {}) {
   const win = {
     location: { href: 'https://www.kroger.com/savings/cl/coupons/' },
     scrolls: 0,
+    scrollEvents: 0,
     onScroll: null,
     scrollTo() {
       this.scrolls++;
+    },
+    dispatchEvent(ev) {
+      if (ev.type !== 'scroll') return;
+      this.scrollEvents++;
       if (this.onScroll) this.onScroll();
     },
   };
@@ -213,4 +218,26 @@ test('hide-clipped selector picks up coupons clipped during a run', async () => 
   const matched = Array.from(page.doc.querySelectorAll(CLIPPED_CELL_SELECTOR))
     .map((li) => li.querySelector(CARD_SELECTOR).dataset.kind);
   assert.deepEqual(matched, ['clippable', 'clipped', 'boostBrand']);
+});
+
+test('loadAllCards scrolls to the bottom and fires scroll events until no more cards load', async () => {
+  const { loadAllCards } = require('../src/clipper');
+  const page = makePage();
+  let loads = 0;
+  page.win.onScroll = () => {
+    if (loads++ < 2) page.appendClone('clippable');
+  };
+  const total = await loadAllCards({ doc: page.doc, win: page.win, sleep: async () => {} });
+  assert.equal(total, 6);
+  assert.equal(page.win.scrolls, 4);
+  assert.equal(page.win.scrollEvents, 4);
+});
+
+test('loadAllCards honors stop requests', async () => {
+  const { loadAllCards } = require('../src/clipper');
+  const page = makePage();
+  page.win.onScroll = () => page.appendClone('clippable');
+  let calls = 0;
+  await loadAllCards({ doc: page.doc, win: page.win, sleep: async () => {}, shouldStop: () => calls++ >= 3 });
+  assert.equal(page.win.scrolls, 3);
 });

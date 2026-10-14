@@ -3,6 +3,7 @@
 
   const {
     run,
+    loadAllCards,
     clampDelaySeconds,
     clampPanelPosition,
     DEFAULT_DELAY_SECONDS,
@@ -117,7 +118,10 @@
   };
   if (storage) {
     storage.get([STORAGE_KEY, POSITION_KEY, HIDE_CLIPPED_KEY]).then((items) => {
-      if (items && items[HIDE_CLIPPED_KEY] === true) applyHideClipped(true);
+      if (items && items[HIDE_CLIPPED_KEY] === true) {
+        applyHideClipped(true);
+        loadAllWhileHiding();
+      }
       if (items && items[STORAGE_KEY] !== undefined) {
         delaySeconds = clampDelaySeconds(items[STORAGE_KEY]);
         showDelay();
@@ -163,6 +167,7 @@
   hideBox.addEventListener('change', () => {
     applyHideClipped(hideBox.checked);
     save({ [HIDE_CLIPPED_KEY]: hideBox.checked });
+    loadAllWhileHiding();
   });
 
   slider.addEventListener('input', () => {
@@ -173,6 +178,24 @@
 
   let running = false;
   let stopRequested = false;
+  let loadingAll = false;
+
+  // With clipped coupons hidden the page may be too short to scroll, so
+  // unclipped coupons further down never load unless we request them.
+  async function loadAllWhileHiding() {
+    if (!hideBox.checked || loadingAll || running) return;
+    loadingAll = true;
+    hideText.textContent = 'Hide clipped coupons (loading all...)';
+    try {
+      await loadAllCards({ doc: document, win: window, shouldStop: () => !hideBox.checked || running });
+      if (!running) window.scrollTo(0, 0);
+    } catch (err) {
+      console.error('[Coupon Clip All]', err);
+    } finally {
+      loadingAll = false;
+      hideText.textContent = 'Hide clipped coupons';
+    }
+  }
 
   const summary = (s) =>
     `${s.clipped} clipped, ${s.boost} Boost skipped, ${s.clipped_already} already clipped, ${s.failed} failed`;
