@@ -15,7 +15,7 @@ A personal, unpacked Chrome MV3 extension that clips every Kroger digital coupon
 ## Behavior
 - Floating "Clip All" button toggles Start/Stop and shows a running tally.
 - Click only when button text is exactly `Clip` and no Boost marker is present; anything else is skipped.
-- After click, wait up to 5s for `Unclip`; user-selected delay (0.5-10s, default 1s, +/-30% jitter) between clips.
+- After click, wait up to 5s for `Unclip`; user-selected delay (0.5-10s, default 1.5s, +/-30% jitter) between clips.
 - When no unprocessed cards remain, scroll to bottom; finish after 2 scrolls load nothing.
 - Abort if `location.href` changes; stop after 3 consecutive failures (likely clip limit).
 
