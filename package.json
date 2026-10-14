@@ -1,0 +1,11 @@
+{
+  "name": "coupon-clip-all",
+  "version": "1.0.2",
+  "private": true,
+  "scripts": {
+    "test": "node --test \"test/**/*.test.js\""
+  },
+  "devDependencies": {
+    "jsdom": "^26.0.0"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Coupon Clip All",
+  "version": "1.0.2",
+  "description": "Clips all digital coupons on kroger.com top-down, skipping Boost Member Exclusive coupons. Not affiliated with Kroger.",
+  "permissions": [
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.kroger.com/savings/cl/coupons*"
+      ],
+      "js": [
+        "src/clipper.js",
+        "src/content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
