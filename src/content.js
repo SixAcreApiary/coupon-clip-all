@@ -10,6 +10,7 @@
     MIN_DELAY_SECONDS,
     MAX_DELAY_SECONDS,
     HIDE_CLIPPED_CSS,
+    SUPPORT_URL,
   } = window.CouponClipper;
   const STORAGE_KEY = 'delaySeconds';
   const POSITION_KEY = 'panelPosition';
@@ -91,7 +92,19 @@
     textAlign: 'left',
   });
 
-  panel.append(handle, delayRow, hideRow, button);
+  const support = document.createElement('a');
+  support.href = SUPPORT_URL;
+  support.target = '_blank';
+  support.rel = 'noopener noreferrer';
+  support.textContent = '\u2615 Buy me a coffee';
+  Object.assign(support.style, {
+    alignSelf: 'flex-end',
+    color: '#666',
+    font: '11px/1.2 system-ui, sans-serif',
+    textDecoration: 'none',
+  });
+
+  panel.append(handle, delayRow, hideRow, button, support);
   document.body.appendChild(panel);
 
   let delaySeconds = DEFAULT_DELAY_SECONDS;

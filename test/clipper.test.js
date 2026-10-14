@@ -241,3 +241,8 @@ test('loadAllCards honors stop requests', async () => {
   await loadAllCards({ doc: page.doc, win: page.win, sleep: async () => {}, shouldStop: () => calls++ >= 3 });
   assert.equal(page.win.scrolls, 3);
 });
+
+test('support link points to the Buy Me a Coffee page over https', () => {
+  const { SUPPORT_URL } = require('../src/clipper');
+  assert.equal(SUPPORT_URL, 'https://buymeacoffee.com/xanderphillips');
+});
