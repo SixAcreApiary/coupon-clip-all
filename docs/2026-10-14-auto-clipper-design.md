@@ -22,5 +22,5 @@ A personal, unpacked Chrome MV3 extension that clips every Kroger digital coupon
 ## Files
 - `manifest.json` - content script on `/savings/cl/coupons*`.
 - `src/clipper.js` - `classifyCard` and `run` (DOM/window/sleep injected for testing).
-- `src/content.js` - draggable floating panel (delay slider + Clip All button); delay and position persisted in `chrome.storage.local`.
+- `src/content.js` - draggable floating panel (delay slider, hide-clipped toggle via a `:has()` CSS rule on `Unclip` aria-labels, Clip All button); delay and position persisted in `chrome.storage.local`.
 - `test/` - `node:test` + jsdom against real card fixtures extracted from the saved page.

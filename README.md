@@ -28,6 +28,7 @@ A small panel appears in the bottom-right corner of the coupons page.
 
 - **Move it** - drag the panel by its "Coupon Clip All" title bar. Double-click the title bar to send it back to the corner. The position is remembered.
 - **Delay** - pause between clips, 0.5-10 seconds (each pause varies by +/-30% so clicks aren't evenly spaced). The setting is remembered and can be changed mid-run.
+- **Hide clipped coupons** - hides coupons you've already clipped, including ones clipped during a run, so only unclipped coupons remain. When turned on, it scrolls through the page once to load every coupon (Kroger only loads more as you scroll), then returns to the top. Kroger's coupon count at the top doesn't change. Turn it off (or use Kroger's "Clipped Coupons" tab) to unclip something. The setting is remembered.
 - **Clip All** - starts clipping. While running, the button becomes **Stop** and shows a running tally.
 
 It scrolls down to load more coupons as it goes and finishes when no more load. A run also stops if:
@@ -44,7 +45,7 @@ A coupon is only clicked when its button reads exactly **Clip** and the card has
 - Automated clicking may conflict with Kroger's terms of use. Use at your own risk; the authors aren't responsible for any action taken on your account.
 - If Kroger changes its page layout the extension may stop finding coupons until it's updated.
 - Only `www.kroger.com` is supported; other Kroger-family banners (Ralphs, Fred Meyer, etc.) are not.
-- The extension collects no data and makes no network requests of its own. It stores only your delay and panel position, locally in your browser.
+- The extension collects no data and makes no network requests of its own. It stores only your delay, panel position and hide-clipped setting, locally in your browser.
 
 ## Development
 

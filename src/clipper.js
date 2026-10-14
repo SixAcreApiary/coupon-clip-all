@@ -1,6 +1,9 @@
 (function (root) {
   const CARD_SELECTOR = '[data-testid="coupon-grid-card"]';
   const BUTTON_SELECTOR = '[data-testid^="CouponActionButton-"]';
+  const CLIPPED_CELL_SELECTOR =
+    `li:has(> ${CARD_SELECTOR} ${BUTTON_SELECTOR}[aria-label^="Unclip"])`;
+  const HIDE_CLIPPED_CSS = `${CLIPPED_CELL_SELECTOR} { display: none !important; }`;
 
   // Boost coupons route through an "Enroll in Boost" flow that hijacks the session.
   // Only an exact "Clip" button on a card with no Boost markers is ever clicked.
@@ -50,6 +53,34 @@
     return predicate();
   }
 
+  // Kroger's infinite scroll only loads the next batch when the window is scrolled
+  // near the bottom and a scroll event fires.
+  function requestMoreCards(doc, win) {
+    win.scrollTo(0, doc.documentElement.scrollHeight);
+    if (typeof win.dispatchEvent === 'function') win.dispatchEvent(new Event('scroll'));
+  }
+
+  async function loadAllCards(options) {
+    const {
+      doc,
+      win,
+      sleep = defaultSleep,
+      shouldStop = () => false,
+      scrollWait = 2500,
+      maxEmptyScrolls = 2,
+      maxScrolls = 50,
+    } = options;
+    const count = () => doc.querySelectorAll(CARD_SELECTOR).length;
+    let emptyScrolls = 0;
+    for (let i = 0; i < maxScrolls && emptyScrolls < maxEmptyScrolls && !shouldStop(); i++) {
+      const before = count();
+      requestMoreCards(doc, win);
+      await sleep(scrollWait);
+      emptyScrolls = count() > before ? 0 : emptyScrolls + 1;
+    }
+    return count();
+  }
+
   async function run(options) {
     const {
       doc,
@@ -80,7 +111,7 @@
       const card = cards().find((c) => !seen.has(c));
       if (!card) {
         const before = cards().length;
-        win.scrollTo(0, doc.body.scrollHeight);
+        requestMoreCards(doc, win);
         await sleep(scrollWait);
         if (cards().length > before) {
           emptyScrolls = 0;
@@ -126,11 +157,14 @@
   const api = {
     classifyCard,
     run,
+    loadAllCards,
     clampDelaySeconds,
     jitteredDelayMs,
     clampPanelPosition,
     CARD_SELECTOR,
     BUTTON_SELECTOR,
+    CLIPPED_CELL_SELECTOR,
+    HIDE_CLIPPED_CSS,
     DEFAULT_DELAY_SECONDS,
     MIN_DELAY_SECONDS,
     MAX_DELAY_SECONDS,
