@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Coupon Clip All",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Unofficial helper that clips kroger.com digital coupons, skipping Boost Member Exclusive ones. Not affiliated with Kroger.",
   "homepage_url": "https://github.com/SixAcreApiary/coupon-clip-all",
   "icons": {
