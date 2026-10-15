@@ -38,7 +38,8 @@ No data is collected or transmitted. Only your settings (delay, panel position, 
 
 HOW TO USE
 1. Sign in at kroger.com and open the digital coupons page.
-2. Use the panel in the bottom-right corner: set the delay if you like, then click "Clip All".
+2. If the Coupon Clip All panel doesn't appear in the bottom-right corner, refresh the page.
+3. Use the panel: set the delay if you like, then click "Clip All".
 
 Open source: https://github.com/SixAcreApiary/coupon-clip-all
 ```
@@ -74,12 +75,12 @@ The extension's only function is to operate on the kroger.com digital coupons pa
 
 Username/password: leave blank (don't create or share a kroger.com account).
 
-Additional instructions (max 500 chars; this is 447):
+Additional instructions (max 500 chars; this is 464):
 
 ```
 No test account: clipping needs the reviewer's own free kroger.com account; we can't create or share accounts on a third-party site.
 1. Open https://www.kroger.com/savings/cl/coupons/ and sign in.
-2. A "Coupon Clip All" panel appears bottom-right.
+2. A "Coupon Clip All" panel appears bottom-right (refresh if not).
 3. Click Clip All: coupons clip top-down ~1.5s apart; "Boost Exclusive" coupons are skipped.
 4. "Hide clipped" / "Hide Boost Exclusive" hide those coupons.
 Only local storage used; no data collected.
