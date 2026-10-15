@@ -30,7 +30,7 @@ Unpacked installs don't update themselves. To be notified of new versions, click
 
 ## Use
 
-A small panel appears in the bottom-right corner of the coupons page.
+A small panel appears in the bottom-right corner of the coupons page. If it doesn't, refresh the page: when you reach Digital Coupons by clicking around kroger.com, the site doesn't do a full page load, so the extension isn't started until you refresh.
 
 - **Move it** - drag the panel by its "Coupon Clip All" title bar. Double-click the title bar to send it back to the corner. The position is remembered.
 - **Delay** - pause between clips, 0.5-10 seconds. Defaults to **1.5 seconds**, a human-like pace; each pause varies by +/-30% so clicks aren't evenly spaced. Faster settings make automated use more noticeable to Kroger, so lower it at your own risk. The setting is remembered and can be changed mid-run.
