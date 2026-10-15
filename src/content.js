@@ -10,11 +10,13 @@
     MIN_DELAY_SECONDS,
     MAX_DELAY_SECONDS,
     HIDE_CLIPPED_CSS,
+    HIDE_BOOST_CSS,
     SUPPORT_URL,
   } = window.CouponClipper;
   const STORAGE_KEY = 'delaySeconds';
   const POSITION_KEY = 'panelPosition';
   const HIDE_CLIPPED_KEY = 'hideClipped';
+  const HIDE_BOOST_KEY = 'hideBoost';
   const IDLE_COLOR = '#0f5ead';
 
   const panel = document.createElement('div');
@@ -78,6 +80,22 @@
     hideStyle.textContent = on ? HIDE_CLIPPED_CSS : '';
   };
 
+  const boostRow = document.createElement('label');
+  Object.assign(boostRow.style, { display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' });
+  const boostBox = document.createElement('input');
+  boostBox.type = 'checkbox';
+  const boostText = document.createElement('span');
+  boostText.textContent = 'Hide Boost Exclusive coupons';
+  boostRow.append(boostBox, boostText);
+
+  const boostStyle = document.createElement('style');
+  boostStyle.id = 'coupon-clip-all-hide-boost';
+  document.head.appendChild(boostStyle);
+  const applyHideBoost = (on) => {
+    boostBox.checked = on;
+    boostStyle.textContent = on ? HIDE_BOOST_CSS : '';
+  };
+
   const button = document.createElement('button');
   button.type = 'button';
   button.textContent = 'Clip All';
@@ -104,7 +122,7 @@
     textDecoration: 'none',
   });
 
-  panel.append(handle, delayRow, hideRow, button, support);
+  panel.append(handle, delayRow, hideRow, boostRow, button, support);
   document.body.appendChild(panel);
 
   let delaySeconds = DEFAULT_DELAY_SECONDS;
@@ -130,11 +148,10 @@
     if (storage) storage.set(items).catch(() => {});
   };
   if (storage) {
-    storage.get([STORAGE_KEY, POSITION_KEY, HIDE_CLIPPED_KEY]).then((items) => {
-      if (items && items[HIDE_CLIPPED_KEY] === true) {
-        applyHideClipped(true);
-        loadAllWhileHiding();
-      }
+    storage.get([STORAGE_KEY, POSITION_KEY, HIDE_CLIPPED_KEY, HIDE_BOOST_KEY]).then((items) => {
+      if (items && items[HIDE_CLIPPED_KEY] === true) applyHideClipped(true);
+      if (items && items[HIDE_BOOST_KEY] === true) applyHideBoost(true);
+      loadAllWhileHiding();
       if (items && items[STORAGE_KEY] !== undefined) {
         delaySeconds = clampDelaySeconds(items[STORAGE_KEY]);
         showDelay();
@@ -183,6 +200,12 @@
     loadAllWhileHiding();
   });
 
+  boostBox.addEventListener('change', () => {
+    applyHideBoost(boostBox.checked);
+    save({ [HIDE_BOOST_KEY]: boostBox.checked });
+    loadAllWhileHiding();
+  });
+
   slider.addEventListener('input', () => {
     delaySeconds = clampDelaySeconds(slider.value);
     showDelay();
@@ -193,20 +216,21 @@
   let stopRequested = false;
   let loadingAll = false;
 
-  // With clipped coupons hidden the page may be too short to scroll, so
-  // unclipped coupons further down never load unless we request them.
+  // With coupons hidden the page may be too short to scroll, so
+  // coupons further down never load unless we request them.
+  const hiding = () => hideBox.checked || boostBox.checked;
   async function loadAllWhileHiding() {
-    if (!hideBox.checked || loadingAll || running) return;
+    if (!hiding() || loadingAll || running) return;
     loadingAll = true;
-    hideText.textContent = 'Hide clipped coupons (loading all...)';
+    handle.textContent = '\u2807 Coupon Clip All (loading all...)';
     try {
-      await loadAllCards({ doc: document, win: window, shouldStop: () => !hideBox.checked || running });
+      await loadAllCards({ doc: document, win: window, shouldStop: () => !hiding() || running });
       if (!running) window.scrollTo(0, 0);
     } catch (err) {
       console.error('[Coupon Clip All]', err);
     } finally {
       loadingAll = false;
-      hideText.textContent = 'Hide clipped coupons';
+      handle.textContent = '\u2807 Coupon Clip All';
     }
   }
 

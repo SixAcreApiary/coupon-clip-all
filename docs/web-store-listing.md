@@ -29,11 +29,12 @@ FEATURES
 - Skips "Boost Member Exclusive" coupons, whose button starts a membership sign-up flow instead of clipping.
 - Human-paced by default: about 1.5 seconds between clips, with natural variation. Adjustable from 0.5 to 10 seconds.
 - "Hide clipped coupons" option to see only what's left.
+- "Hide Boost Exclusive coupons" option to hide the membership-only coupons it skips.
 - Draggable on-page panel with a live tally and a Stop button.
 - Stops automatically if the page navigates away or clips repeatedly fail (for example when Kroger's clipped-coupon limit is reached).
 
 PRIVACY
-No data is collected or transmitted. Only your settings (delay, panel position, hide-clipped choice) are stored, locally in your browser.
+No data is collected or transmitted. Only your settings (delay, panel position, hide options) are stored, locally in your browser.
 
 HOW TO USE
 1. Sign in at kroger.com and open the digital coupons page.
@@ -55,7 +56,7 @@ Open source: https://github.com/SixAcreApiary/coupon-clip-all
 Clips the available digital coupons on the kroger.com coupons page on the user's behalf, skipping coupons that require a paid membership.
 
 **Permission justification - storage:**
-Saves the user's own settings (delay between clips, panel position, hide-clipped toggle) locally so they persist between visits.
+Saves the user's own settings (delay between clips, panel position, hide-clipped and hide-Boost toggles) locally so they persist between visits.
 
 **Host permission justification (content script on https://www.kroger.com/savings/cl/coupons*):**
 The extension's only function is to operate on the kroger.com digital coupons page: it reads coupon cards to identify clippable ones and clicks their Clip buttons when the user presses "Clip All". It runs on no other pages.
@@ -73,14 +74,14 @@ The extension's only function is to operate on the kroger.com digital coupons pa
 
 Username/password: leave blank (don't create or share a kroger.com account).
 
-Additional instructions (max 500 chars; this is 431):
+Additional instructions (max 500 chars; this is 447):
 
 ```
 No test account: clipping needs the reviewer's own free kroger.com account; we can't create or share accounts on a third-party site.
 1. Open https://www.kroger.com/savings/cl/coupons/ and sign in.
 2. A "Coupon Clip All" panel appears bottom-right.
 3. Click Clip All: coupons clip top-down ~1.5s apart; "Boost Exclusive" coupons are skipped.
-4. "Hide clipped coupons" hides clipped ones.
+4. "Hide clipped" / "Hide Boost Exclusive" hide those coupons.
 Only local storage used; no data collected.
 ```
 
@@ -97,7 +98,8 @@ Take at 1280x800 (set the browser window to that size, or capture and crop). Avo
 1. Coupons page with the panel visible, before clicking Clip All.
 2. Mid-run: panel showing "Stop - N clipped, ..." with coupons flipping to Unclip.
 3. "Hide clipped coupons" turned on, showing only remaining coupons and skipped Boost coupons.
-4. Finished state with the summary tally.
+4. "Hide clipped coupons" and "Hide Boost Exclusive coupons" both on, showing only coupons left to clip.
+5. Finished state with the summary tally.
 
 ## Upload
 

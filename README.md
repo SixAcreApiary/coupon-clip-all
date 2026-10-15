@@ -35,6 +35,7 @@ A small panel appears in the bottom-right corner of the coupons page.
 - **Move it** - drag the panel by its "Coupon Clip All" title bar. Double-click the title bar to send it back to the corner. The position is remembered.
 - **Delay** - pause between clips, 0.5-10 seconds. Defaults to **1.5 seconds**, a human-like pace; each pause varies by +/-30% so clicks aren't evenly spaced. Faster settings make automated use more noticeable to Kroger, so lower it at your own risk. The setting is remembered and can be changed mid-run.
 - **Hide clipped coupons** - hides coupons you've already clipped, including ones clipped during a run, so only unclipped coupons remain. When turned on, it scrolls through the page once to load every coupon (Kroger only loads more as you scroll), then returns to the top. Kroger's coupon count at the top doesn't change. Turn it off (or use Kroger's "Clipped Coupons" tab) to unclip something. The setting is remembered.
+- **Hide Boost Exclusive coupons** - hides "Boost Member Exclusive" coupons, which Clip All never clips anyway, so they don't clutter the page. Like the hide-clipped option, turning it on loads every coupon once. BOOST nutrition-drink brand coupons stay visible. The setting is remembered.
 - **Clip All** - starts clipping. While running, the button becomes **Stop** and shows a running tally.
 - **Buy me a coffee** - optional support link; opens in a new tab.
 
@@ -52,7 +53,7 @@ A coupon is only clicked when its button reads exactly **Clip** and the card has
 - **Use at your own risk.** Automated clicking may violate Kroger's terms of use, and Kroger may restrict, suspend or close accounts it believes are using automation. The authors aren't responsible for any action taken on your account.
 - If Kroger changes its page layout the extension may stop finding coupons until it's updated.
 - Only `www.kroger.com` is supported; other Kroger-family banners (Ralphs, Fred Meyer, etc.) are not.
-- The extension collects no data and makes no network requests of its own. It stores only your delay, panel position and hide-clipped setting, locally in your browser. See [PRIVACY.md](PRIVACY.md).
+- The extension collects no data and makes no network requests of its own. It stores only your delay, panel position and hide settings, locally in your browser. See [PRIVACY.md](PRIVACY.md).
 
 ## Development
 

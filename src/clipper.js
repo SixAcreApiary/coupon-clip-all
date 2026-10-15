@@ -4,6 +4,11 @@
   const CLIPPED_CELL_SELECTOR =
     `li:has(> ${CARD_SELECTOR} ${BUTTON_SELECTOR}[aria-label^="Unclip"])`;
   const HIDE_CLIPPED_CSS = `${CLIPPED_CELL_SELECTOR} { display: none !important; }`;
+  const BOOST_CELL_SELECTOR = [
+    `li:has(> ${CARD_SELECTOR} .SavingsTag--BME)`,
+    `li:has(> ${CARD_SELECTOR} ${BUTTON_SELECTOR}[aria-label^="Enroll in Boost"])`,
+  ].join(', ');
+  const HIDE_BOOST_CSS = `${BOOST_CELL_SELECTOR} { display: none !important; }`;
 
   // Boost coupons route through an "Enroll in Boost" flow that hijacks the session.
   // Only an exact "Clip" button on a card with no Boost markers is ever clicked.
@@ -167,6 +172,8 @@
     BUTTON_SELECTOR,
     CLIPPED_CELL_SELECTOR,
     HIDE_CLIPPED_CSS,
+    BOOST_CELL_SELECTOR,
+    HIDE_BOOST_CSS,
     SUPPORT_URL,
     DEFAULT_DELAY_SECONDS,
     MIN_DELAY_SECONDS,

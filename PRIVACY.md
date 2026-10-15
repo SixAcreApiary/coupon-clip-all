@@ -10,11 +10,12 @@ The extension **does not collect, transmit, sell or share any personal or usage 
 
 ## Data stored on your device
 
-The extension saves three settings using the browser's local extension storage (`chrome.storage.local`):
+The extension saves four settings using the browser's local extension storage (`chrome.storage.local`):
 
 - your chosen delay between clips
 - the on-page panel's position
 - whether "Hide clipped coupons" is turned on
+- whether "Hide Boost Exclusive coupons" is turned on
 
 These never leave your browser. Removing the extension deletes them.
 

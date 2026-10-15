@@ -220,6 +220,31 @@ test('hide-clipped selector picks up coupons clipped during a run', async () => 
   assert.deepEqual(matched, ['clippable', 'clipped', 'boostBrand']);
 });
 
+test('hide-boost selector matches only Boost Exclusive cells, not BOOST brand coupons', () => {
+  const { BOOST_CELL_SELECTOR, HIDE_BOOST_CSS } = require('../src/clipper');
+  const page = makePage();
+  const matched = Array.from(page.doc.querySelectorAll(BOOST_CELL_SELECTOR))
+    .map((li) => li.querySelector(CARD_SELECTOR).dataset.kind);
+  assert.deepEqual(matched, ['boost']);
+  assert.ok(HIDE_BOOST_CSS.includes('display: none'));
+});
+
+test('hide-boost selector matches a Boost card by its Enroll button alone', () => {
+  const { BOOST_CELL_SELECTOR } = require('../src/clipper');
+  const page = makePage();
+  const card = page.doc.querySelector('[data-kind="boost"]');
+  card.querySelectorAll('.SavingsTag--BME').forEach((tag) => tag.classList.remove('SavingsTag--BME'));
+  assert.ok(card.closest('li').matches(BOOST_CELL_SELECTOR));
+});
+
+test('hide-boost selector picks up Boost coupons loaded later', () => {
+  const { BOOST_CELL_SELECTOR } = require('../src/clipper');
+  const page = makePage();
+  page.appendClone('boost');
+  page.appendClone('clippable');
+  assert.equal(page.doc.querySelectorAll(BOOST_CELL_SELECTOR).length, 2);
+});
+
 test('loadAllCards scrolls to the bottom and fires scroll events until no more cards load', async () => {
   const { loadAllCards } = require('../src/clipper');
   const page = makePage();
