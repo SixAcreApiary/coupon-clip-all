@@ -12,24 +12,21 @@ This is an independent, unofficial project. It is **not affiliated with, endorse
 
 ## Install
 
-The extension isn't on the Chrome Web Store, so it's loaded manually. Chrome may show a "developer mode extensions" notice on startup; that's expected.
+Install from the [Chrome Web Store](https://chromewebstore.google.com/detail/fpkngfagkjpkohdiakfmejghdnkggccc), then open <https://www.kroger.com/savings/cl/coupons/> while signed in. Store installs update automatically.
 
-1. Go to the [latest release](https://github.com/SixAcreApiary/coupon-clip-all/releases/latest) and download `coupon-clip-all-vX.Y.Z.zip` (under **Assets**).
+Works in other Chromium browsers (Edge, Brave) that allow Chrome Web Store extensions.
+
+### Manual install (unpacked)
+
+To run a GitHub release or unreleased code instead of the store version, load it manually. Chrome may show a "developer mode extensions" notice on startup; that's expected.
+
+1. Go to the [latest release](https://github.com/SixAcreApiary/coupon-clip-all/releases/latest) and download `coupon-clip-all-vX.Y.Z.zip` (under **Assets**), or use **Code > Download ZIP** (or `git clone`) for the latest unreleased code.
 2. Unzip it somewhere you'll keep it (Chrome loads the extension from this folder, so don't delete it). You'll get a `coupon-clip-all` folder.
 3. In Chrome, go to `chrome://extensions`.
 4. Turn on **Developer mode** (top-right toggle).
 5. Click **Load unpacked** and choose the `coupon-clip-all` folder (the one containing `manifest.json`).
-6. Open <https://www.kroger.com/savings/cl/coupons/> while signed in.
 
-Works in other Chromium browsers (Edge, Brave) the same way.
-
-### Updates
-
-The extension doesn't update itself. To be notified of new versions, click **Watch > Custom > Releases** at the top of this repo on GitHub.
-
-To update: download the new release zip, replace the contents of your `coupon-clip-all` folder with the new one, then click the reload icon on the extension's card in `chrome://extensions`. Your settings are kept.
-
-Prefer the latest unreleased code? Use **Code > Download ZIP** (or `git clone`) instead and load that folder.
+Unpacked installs don't update themselves. To be notified of new versions, click **Watch > Custom > Releases** at the top of this repo on GitHub. To update, replace the contents of your `coupon-clip-all` folder with the new release, then click the reload icon on the extension's card in `chrome://extensions`. Your settings are kept.
 
 ## Use
 

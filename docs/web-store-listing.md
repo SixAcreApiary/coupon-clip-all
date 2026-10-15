@@ -2,6 +2,8 @@
 
 Copy-paste source for the Chrome Web Store Developer Dashboard.
 
+Published: <https://chromewebstore.google.com/detail/fpkngfagkjpkohdiakfmejghdnkggccc> (item ID `fpkngfagkjpkohdiakfmejghdnkggccc`).
+
 ## Store listing tab
 
 **Name** (from manifest): Coupon Clip All
